@@ -9,7 +9,8 @@ const lineConfig = {
     pointHoverBorderWidth: 2,
     fill: false,
     pointBackgroundColor: '#fff',
-    pointBorderWidth: 1
+    pointBorderWidth: 1,
+    spanGaps: true
 }
 
 class App extends Component {
@@ -72,7 +73,12 @@ class App extends Component {
                 prevBorderWidth: dataset.borderWidth,
                 borderWidth: borderWidth
 
-            }) : dataset)
+            }) : ({
+                ...dataset,
+                // prevBorderWidth: dataset.borderWidth,
+                borderWidth: borderWidth === 4 ? 0.5 : 2
+
+            }))
         }))
     }
 
