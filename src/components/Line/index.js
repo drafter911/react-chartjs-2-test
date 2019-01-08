@@ -1,15 +1,16 @@
 import React from 'react';
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
-const BarChart = ({data, onLegendClick}) => (
+const BarChart = ({ data, onLegendHover }) => (
     <div>
         <h2>Line</h2>
-        <div style={{height:300}}>
+        <div style={{ height: 300 }}>
             <Line
                 data={data}
                 width={100}
                 height={200}
                 options={{
+                    responsive: true,
                     title: {
                         display: false
                     },
@@ -31,38 +32,50 @@ const BarChart = ({data, onLegendClick}) => (
                             gridLines: {
                                 borderDash: [3]
                             },
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Days'
-                                }
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Days'
+                            }
                         }
-                        // , {
-                        //     id: 'My Third dataset',
-                        //     position: 'right',
-                        //     gridLines: {
-                        //         borderDash: [3]
-                        //     },
-                        //     scaleLabel: {
-                        //         display: true,
-                        //         labelString: '%'
-                        //     }
-                        // }
                         ],
                         xAxes: [{
                             gridLines: {
                                 display: false
                             },
+                            padding: 5,
                             ticks: {
-                                mirror: true
+                                maxTicksLimit: 30,
                             }
                         }]
                     },
                     legend: {
-                        onClick: (e, {datasetIndex}) => {},
-                        onHover: (e, {datasetIndex}) => {}
+                        display: false
                     }
                 }}
             />
+        </div>
+        <div style={{ display: 'flex' }}>
+            {
+                data.datasets.map((dataset, index) => (
+                    <div
+                        style={{
+                            display: 'flex',
+                            marginRight: 10,
+                            alignItems: 'center',
+                            cursor: 'pointer'
+                        }}
+                        onMouseEnter={() => onLegendHover(index, 'Line', dataset.prevBorderWidth)}
+                        onMouseLeave={() => onLegendHover(index, 'Line', dataset.prevBorderWidth)}>
+                            <span style={{
+                                width: 15,
+                                height: 15,
+                                background: dataset.backgroundColor,
+                                marginRight: 5
+                            }}></span>
+                        <span>{dataset.label}</span>
+                    </div>
+                ))
+            }
         </div>
     </div>
 )
