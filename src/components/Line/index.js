@@ -22,6 +22,9 @@ const BarChart = ({ data, onLegendHover }) => (
                             gridLines: {
                                 borderDash: [3]
                             },
+                            ticks: {
+                              // mirror: true
+                            },
                             scaleLabel: {
                                 display: true,
                                 labelString: '$'
@@ -40,16 +43,28 @@ const BarChart = ({ data, onLegendHover }) => (
                         ],
                         xAxes: [{
                             gridLines: {
-                                display: false
+                                display: false,
+                                tickMarkLength: 10,
+                                drawOnChartArea: false
                             },
-                            padding: 5,
                             ticks: {
                                 maxTicksLimit: 30,
+                                padding: 0,
+                                autoSkipPadding: -100,
+                                autoSkip:true,
+                                callback: function(value, index, values) {
+                                    return value.length > 10 ? `${value.substring(0,9)} ...` : value
+                                }
                             }
                         }]
                     },
                     legend: {
                         display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            title: (arr, data) => data.labels[arr[0].index]
+                        }
                     }
                 }}
             />
