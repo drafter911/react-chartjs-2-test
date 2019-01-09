@@ -48,7 +48,7 @@ const BarChart = ({ data, onLegendHover }) => (
                                 drawOnChartArea: false
                             },
                             ticks: {
-                                maxTicksLimit: 30,
+                                maxTicksLimit: 10,
                                 padding: 0,
                                 autoSkipPadding: -100,
                                 autoSkip:true,
@@ -73,14 +73,15 @@ const BarChart = ({ data, onLegendHover }) => (
             {
                 data.datasets.map((dataset, index) => (
                     <div
+                        key={dataset.label}
                         style={{
                             display: 'flex',
                             marginRight: 10,
                             alignItems: 'center',
                             cursor: 'pointer'
                         }}
-                        onMouseEnter={() => onLegendHover(index, 'Line', dataset.prevBorderWidth)}
-                        onMouseLeave={() => onLegendHover(index, 'Line', dataset.prevBorderWidth)}>
+                        onMouseEnter={() => onLegendHover(index, 'Line', true)}
+                        onMouseLeave={() => onLegendHover(index, 'Line')}>
                             <span style={{
                                 width: 15,
                                 height: 15,

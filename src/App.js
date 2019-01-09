@@ -5,10 +5,13 @@ import Line from './components/Line'
 
 const lineConfig = {
     borderWidth: 2,
-    prevBorderWidth: 4,
+    normalBorderWidth: 2,
+    activeBorderWidth: 4,
+    disabledBorderWidth: 0.5,
     pointHoverBorderWidth: 2,
     fill: false,
     pointBackgroundColor: '#fff',
+    disabledColor: 'rgba(0,0,0,0.2)',
     pointBorderWidth: 1,
     spanGaps: true
 }
@@ -46,7 +49,7 @@ class App extends Component {
                 label: 'My Second dataset',
                 yAxisID: 'My Second dataset',
                 backgroundColor: 'orange',
-                prevBackgroundColor: 'rgba(255,99,132,0.2)',
+                prevBackgroundColor: 'orange',
                 borderColor: 'orange',
                 hoverBackgroundColor: 'red',
                 hoverBorderColor: 'rgba(255,99,132,1)',
@@ -57,7 +60,7 @@ class App extends Component {
                 label: 'My First dataset',
                 yAxisID: 'My First dataset',
                 backgroundColor: 'green',
-                prevBackgroundColor: 'rgba(0,0,0,0.2)',
+                prevBackgroundColor: 'green',
                 borderColor: 'green',
                 hoverBackgroundColor: 'red',
                 hoverBorderColor: 'rgba(255,99,132,1)',
@@ -66,18 +69,18 @@ class App extends Component {
         ]
     }
 
-    handleLegendHover = (datasetIndex, chartType, borderWidth) => {
+    handleLegendHover = (datasetIndex, chartType, isActiveOneGraph) => {
         this.setState(prevState => ({
             [`datasets${chartType}`]: prevState[`datasets${chartType}`].map((dataset, index) => index === datasetIndex ? ({
                 ...dataset,
                 prevBorderWidth: dataset.borderWidth,
-                borderWidth: borderWidth
+                borderWidth: isActiveOneGraph ? dataset.activeBorderWidth : dataset.normalBorderWidth
 
             }) : ({
                 ...dataset,
-                // prevBorderWidth: dataset.borderWidth,
-                borderWidth: borderWidth === 4 ? 0.5 : 2
-
+                backgroundColor: isActiveOneGraph ? dataset.disabledColor : dataset.prevBackgroundColor,
+                borderColor: isActiveOneGraph ? dataset.disabledColor : dataset.prevBackgroundColor,
+                borderWidth: isActiveOneGraph ? dataset.disabledBorderWidth : dataset.normalBorderWidth
             }))
         }))
     }
