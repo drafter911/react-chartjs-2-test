@@ -1,8 +1,9 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import Legend from '../Legend'
 
-const BarChart = ({ data, onLegendHover }) => (
-    <div>
+const LineChart = ({ data, onLegendHover }) => (
+    <div style={{marginBottom: 20}}>
         <h2>Line</h2>
         <div style={{ height: 300 }}>
             <Line
@@ -16,20 +17,22 @@ const BarChart = ({ data, onLegendHover }) => (
                     },
                     maintainAspectRatio: false,
                     scales: {
-                        yAxes: [{
+                        yAxes: data.multiAxes ? [
+                            {
                             id: 'My First dataset',
                             position: 'left',
                             gridLines: {
                                 borderDash: [3]
                             },
                             ticks: {
-                              // mirror: true
+                                // mirror: true
                             },
                             scaleLabel: {
                                 display: true,
                                 labelString: '$'
                             }
-                        }, {
+                        },
+                            {
                             id: 'My Second dataset',
                             position: 'right',
                             gridLines: {
@@ -40,7 +43,9 @@ const BarChart = ({ data, onLegendHover }) => (
                                 labelString: 'Days'
                             }
                         }
-                        ],
+                        ] : [{
+                            // stacked: true
+                            }],
                         xAxes: [{
                             gridLines: {
                                 display: false,
@@ -51,16 +56,14 @@ const BarChart = ({ data, onLegendHover }) => (
                                 maxTicksLimit: 10,
                                 padding: 0,
                                 autoSkipPadding: -100,
-                                autoSkip:true,
-                                callback: function(value, index, values) {
-                                    return value.length > 10 ? `${value.substring(0,9)} ...` : value
+                                autoSkip: true,
+                                callback: function (value, index, values) {
+                                    return value.length > 10 ? `${value.substring(0, 9)} ...` : value
                                 }
                             }
                         }]
                     },
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltips: {
                         callbacks: {
                             title: (arr, data) => data.labels[arr[0].index]
@@ -69,31 +72,8 @@ const BarChart = ({ data, onLegendHover }) => (
                 }}
             />
         </div>
-        <div style={{ display: 'flex' }}>
-            {
-                data.datasets.map((dataset, index) => (
-                    <div
-                        key={dataset.label}
-                        style={{
-                            display: 'flex',
-                            marginRight: 10,
-                            alignItems: 'center',
-                            cursor: 'pointer'
-                        }}
-                        onMouseEnter={() => onLegendHover(index, 'Line', true)}
-                        onMouseLeave={() => onLegendHover(index, 'Line')}>
-                            <span style={{
-                                width: 15,
-                                height: 15,
-                                background: dataset.backgroundColor,
-                                marginRight: 5
-                            }}></span>
-                        <span>{dataset.label}</span>
-                    </div>
-                ))
-            }
-        </div>
+        <Legend id={data.id} datasets={data.datasets} onLegendHover={onLegendHover}/>
     </div>
 )
 
-export default BarChart
+export default LineChart
