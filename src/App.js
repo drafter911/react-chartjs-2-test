@@ -16,10 +16,6 @@ const lineConfig = {
     lineTension: 0
 }
 
-const barConfig = {
-    disabledColor: 'rgba(0,0,0,0.2)',
-}
-
 class App extends Component {
     state = {
         datasets: [
@@ -62,7 +58,7 @@ class App extends Component {
                 size: 'small',
                 datasets: [
                     {
-                        ...barConfig,
+                        ...lineConfig,
                         label: 'My Second dataset',
                         yAxisID: 'My Second dataset',
                         backgroundColor: 'orange',
@@ -74,7 +70,7 @@ class App extends Component {
                         data: [3.15, 3.64, 1.92, 4.72, 7.27, 0, 2.73, 2.92],
                     },
                     {
-                        ...barConfig,
+                        ...lineConfig,
                         label: 'My First dataset',
                         yAxisID: 'My First dataset',
                         backgroundColor: 'green',
@@ -273,6 +269,15 @@ class App extends Component {
         }))
     }
 
+    handleReportTypeChange = (id, type) => {
+        this.setState(prevState => ({
+            datasets: prevState.datasets.map(ds => ds.id === id ? ({
+                ...ds,
+                type: type !== ds.type ? type : ds.type
+            }) : ds)
+        }))
+    }
+
     getContainerSize = size => {
         switch (size) {
             case 'small':
@@ -313,6 +318,8 @@ class App extends Component {
                                         <button
                                             onClick={() => this.handleSizeChange('large', datasets.id)}>[...]
                                         </button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'line')}>Line</button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'bar')}>Bar</button>
                                     </div>
                                     <ChartFactory
                                         data={datasets}
