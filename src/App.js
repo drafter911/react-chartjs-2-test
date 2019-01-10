@@ -327,6 +327,118 @@ class App extends Component {
                                 </div>
                             ))
                     }
+                    {
+                        this.state.datasets.map(datasets =>
+                            (
+                                <div key={datasets.id}
+                                     style={{ width: this.getContainerSize(datasets.size) }}>
+                                    <div style={{
+                                        paddingTop: 20,
+                                        display: 'flex',
+                                        justifyContent: 'flex-start'
+                                    }}>
+                                        <button
+                                            onClick={() => this.handleSizeChange('small', datasets.id)}>[.]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('medium', datasets.id)}>[..]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('large', datasets.id)}>[...]
+                                        </button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'line')}>Line</button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'bar')}>Bar</button>
+                                    </div>
+                                    <ChartFactory
+                                        data={datasets}
+                                        onLegendHover={this.handleLegendHover}/>
+                                </div>
+                            ))
+                    }
+                    {
+                        this.state.datasets.map(datasets =>
+                            (
+                                <div key={datasets.id}
+                                     style={{ width: this.getContainerSize(datasets.size) }}>
+                                    <div style={{
+                                        paddingTop: 20,
+                                        display: 'flex',
+                                        justifyContent: 'flex-start'
+                                    }}>
+                                        <button
+                                            onClick={() => this.handleSizeChange('small', datasets.id)}>[.]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('medium', datasets.id)}>[..]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('large', datasets.id)}>[...]
+                                        </button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'line')}>Line</button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'bar')}>Bar</button>
+                                    </div>
+                                    <ChartFactory
+                                        data={datasets}
+                                        onLegendHover={this.handleLegendHover}/>
+                                </div>
+                            ))
+                    }
+                    {
+                        this.state.datasets.map(datasets =>
+                            (
+                                <div key={datasets.id}
+                                     style={{ width: this.getContainerSize(datasets.size) }}>
+                                    <div style={{
+                                        paddingTop: 20,
+                                        display: 'flex',
+                                        justifyContent: 'flex-start'
+                                    }}>
+                                        <button
+                                            onClick={() => this.handleSizeChange('small', datasets.id)}>[.]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('medium', datasets.id)}>[..]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('large', datasets.id)}>[...]
+                                        </button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'line')}>Line</button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'bar')}>Bar</button>
+                                    </div>
+                                    <ChartFactory
+                                        data={datasets}
+                                        onLegendHover={this.handleLegendHover}/>
+                                </div>
+                            ))
+                    }
+                    {
+                        this.state.datasets.map(datasets =>
+                            (
+                                <div key={datasets.id}
+                                     style={{ width: this.getContainerSize(datasets.size) }}>
+                                    <div style={{
+                                        paddingTop: 20,
+                                        display: 'flex',
+                                        justifyContent: 'flex-start'
+                                    }}>
+                                        <button
+                                            onClick={() => this.handleSizeChange('small', datasets.id)}>[.]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('medium', datasets.id)}>[..]
+                                        </button>
+                                        <button
+                                            onClick={() => this.handleSizeChange('large', datasets.id)}>[...]
+                                        </button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'line')}>Line</button>
+                                        <button onClick={() =>this.handleReportTypeChange(datasets.id, 'bar')}>Bar</button>
+                                    </div>
+                                    <ChartFactory
+                                        data={datasets}
+                                        onLegendHover={this.handleLegendHover}/>
+                                </div>
+                            ))
+                    }
                 </div>
             </div>
         );
