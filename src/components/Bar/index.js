@@ -1,16 +1,15 @@
 import React from 'react';
-import {Bar} from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import Legend from '../Legend'
 
-const BarChart = ({data, onLegendHover}) => {
+const BarChart = ({ data, onLegendHover }) => {
     return (
-        <div style={{marginBottom: 20}}>
+        <div style={{ marginBottom: 20 }}>
             <h2>Bar</h2>
-            <div style={{height:300}}>
+            <div style={{ height: 300, position: 'relative' }}>
                 <Bar
                     data={data}
                     width={100}
-                    height={50}
                     options={{
                         maintainAspectRatio: false,
                         scales: {
@@ -45,9 +44,9 @@ const BarChart = ({data, onLegendHover}) => {
                                     maxTicksLimit: 10,
                                     padding: 0,
                                     autoSkipPadding: -100,
-                                    autoSkip:true,
-                                    callback: function(value, index, values) {
-                                        return value.length > 10 ? `${value.substring(0,9)} ...` : value
+                                    autoSkip: true,
+                                    callback: (value, index, values) => {
+                                        return value.length > 10 ? `${value.substring(0, 9)} ...` : value
                                     }
                                 }
                             }]
@@ -61,7 +60,7 @@ const BarChart = ({data, onLegendHover}) => {
                     }}
                 />
             </div>
-            <Legend id={data.id} datasets={data.datasets} onLegendHover={onLegendHover} />
+            <Legend id={data.id} datasets={data.datasets} onLegendHover={onLegendHover}/>
         </div>
     )
 }

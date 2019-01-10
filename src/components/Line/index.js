@@ -5,10 +5,9 @@ import Legend from '../Legend'
 const LineChart = ({ data, onLegendHover }) => (
     <div style={{marginBottom: 20}}>
         <h2>Line</h2>
-        <div style={{ height: 300 }}>
+        <div style={{ height: 300, position: 'relative' }}>
             <Line
                 data={data}
-                width={100}
                 height={200}
                 options={{
                     responsive: true,
