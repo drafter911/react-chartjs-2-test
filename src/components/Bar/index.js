@@ -49,6 +49,11 @@ const BarChart = ({ data, onLegendHover }) => {
             callbacks: {
                 title: (arr, data) => data.labels[arr[0].index]
             }
+        },
+        plugins: {
+            labels: {
+                fontSize: 0
+            }
         }
     }
     return (

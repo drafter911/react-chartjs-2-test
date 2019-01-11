@@ -4,12 +4,12 @@ import 'chartjs-plugin-labels' // docs: https://github.com/emn178/chartjs-plugin
 import Legend from '../Legend'
 
 const colors = [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56',
     '#FF8A00',
-    '#FF444E',
-    '#69FF2F',
+    '#007285',
+    '#777779',
+    '#F9C62C',
+    '#C1C1C1',
+    '#0AADC8',
 ]
 
 const PieChart = ({ data: incomingData, onLegendHover }) => {
@@ -36,7 +36,7 @@ const PieChart = ({ data: incomingData, onLegendHover }) => {
             hoverBackgroundColor: colors,
             prevBackgroundColor: '#FF8A00',
             borderColor: '#FF8A00',
-            borderWidth: 1,
+            borderWidth: 0,
             hoverBorderColor: '#FF8A00',
             data: incomingData.datasets.reduce((res, ds) => {
                 const copy = [...res]
@@ -57,7 +57,8 @@ const PieChart = ({ data: incomingData, onLegendHover }) => {
         legend: { display: false },
         tooltips: {
             callbacks: {
-                title: (arr, data) => data.datasets[0].data[arr[0].index]
+                title: (arr, data) => data.datasets[0].data[arr[0].index],
+                label: (tooltipItem, data) => data.labels[tooltipItem.index]
             },
             intersect: true
         },
@@ -65,28 +66,11 @@ const PieChart = ({ data: incomingData, onLegendHover }) => {
             labels: {
                 render: 'percentage',
                 position: 'border',
-                overlap: false
+                overlap: false,
+                textShadow: false,
+                fontColor: '#fff'
             }
         }
-        // pieceLabel: {
-        //     // mode 'label', 'value' or 'percentage', default is 'percentage'
-        //     mode: 'percentage',
-        //
-        //     // precision for percentage, default is 0
-        //     precision: 0,
-        //
-        //     // font size, default is defaultFontSize
-        //     fontSize: 18,
-        //
-        //     // font color, default is '#fff'
-        //     fontColor: '#fff',
-        //
-        //     // font style, default is defaultFontStyle
-        //     fontStyle: 'bold',
-        //
-        //     // font family, default is defaultFontFamily
-        //     fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
-        // }
     }
     return (
         <div>
