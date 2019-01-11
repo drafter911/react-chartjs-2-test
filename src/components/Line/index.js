@@ -63,7 +63,6 @@ const LineChart = ({ data, onLegendHover }) => {
             }
         }
     }
-    console.log(data.redraw)
     return (
         <div>
             <h2>Line</h2>

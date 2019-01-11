@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
+import 'chartjs-plugin-labels' // docs: https://github.com/emn178/chartjs-plugin-labels
 import Legend from '../Legend'
 
 const colors = [
@@ -56,9 +57,36 @@ const PieChart = ({ data: incomingData, onLegendHover }) => {
         legend: { display: false },
         tooltips: {
             callbacks: {
-                title: (arr, data) => data.labels[arr[0].index]
+                title: (arr, data) => data.datasets[0].data[arr[0].index]
+            },
+            intersect: true
+        },
+        plugins: {
+            labels: {
+                render: 'percentage',
+                position: 'border',
+                overlap: false
             }
         }
+        // pieceLabel: {
+        //     // mode 'label', 'value' or 'percentage', default is 'percentage'
+        //     mode: 'percentage',
+        //
+        //     // precision for percentage, default is 0
+        //     precision: 0,
+        //
+        //     // font size, default is defaultFontSize
+        //     fontSize: 18,
+        //
+        //     // font color, default is '#fff'
+        //     fontColor: '#fff',
+        //
+        //     // font style, default is defaultFontStyle
+        //     fontStyle: 'bold',
+        //
+        //     // font family, default is defaultFontFamily
+        //     fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+        // }
     }
     return (
         <div>

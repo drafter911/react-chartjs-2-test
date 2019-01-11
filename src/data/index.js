@@ -201,7 +201,7 @@ export default [
                 borderWidth: 1,
                 // hoverBackgroundColor: 'rgb(0,128,0,0.7)',
                 hoverBorderColor: '#F9C62C',
-                data: [0, 0, -0.75, 0, 0.5, 0]
+                data: [0.2, 0, -0.75, 0, 0.5, 0]
             },
             {
                 ...lineConfig,
