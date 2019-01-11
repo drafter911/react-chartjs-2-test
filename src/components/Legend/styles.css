@@ -1,0 +1,23 @@
+.LegendWrapper {
+    padding: 10px;
+}
+
+.legendItemWrapper {
+    display: flex;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    align-items: center;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.colorMarker {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.textMarker {
+    width: calc(100% - 15px);
+    text-align: left;
+}

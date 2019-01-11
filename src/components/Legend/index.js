@@ -1,33 +1,33 @@
 import React from 'react'
+import './styles.css'
 
-const Legend = ({ datasets, onLegendHover, id }) => (
-    <div style={{ display: 'block' }}>
+const Legend = ({ datasets, onLegendHover, id, pie }) => (
+    <div className={'LegendWrapper'}>
         {
-            datasets.map((dataset, index) => (
-                <div
-                    key={dataset.label}
-                    style={{
-                        display: 'flex',
-                        marginRight: 10,
-                        marginBottom: 3,
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                        fontSize: 10
-                    }}
-                    onMouseEnter={() => onLegendHover(id, index, true)}
-                    onMouseLeave={() => onLegendHover(id, index)}>
-                            <span style={{
-                                width: 15,
-                                height: 15,
-                                background: dataset.backgroundColor,
-                                marginRight: 5
-                            }}></span>
-                    <span style={{
-                        width: 'calc(100% - 15px)',
-                        textAlign: 'left'
-                    }}>{dataset.label}</span>
-                </div>
-            ))
+            pie ?
+                datasets.labels.map((dataset, index) => (
+                    <div
+                        key={dataset}
+                        className={'legendItemWrapper'}
+                        onMouseEnter={() => onLegendHover(id, index, true)}
+                        onMouseLeave={() => onLegendHover(id, index)}>
+                        <span className={'colorMarker'}
+                              style={{ background: datasets.datasets[0].backgroundColor[index] }}></span>
+                        <span className={'textMarker'}>{dataset}</span>
+                    </div>
+                ))
+                :
+                datasets.map((dataset, index) => (
+                    <div
+                        key={dataset.label}
+                        className={'legendItemWrapper'}
+                        onMouseEnter={() => onLegendHover(id, index, true)}
+                        onMouseLeave={() => onLegendHover(id, index)}>
+                        <span className={'colorMarker'}
+                              style={{ background: dataset.backgroundColor }}></span>
+                        <span className={'textMarker'}>{dataset.label}</span>
+                    </div>
+                ))
         }
     </div>
 )

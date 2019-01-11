@@ -2,78 +2,78 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import Legend from '../Legend'
 
-const PieChart = ({ data, onLegendHover }) => (
-    <div style={{marginBottom: 20}}>
-        <h2>Line</h2>
-        <div style={{ height: 300, position: 'relative' }}>
-            <Pie
-                data={data}
+const colors = [
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56',
+    '#FF8A00',
+    '#FF444E',
+    '#69FF2F',
+]
 
-                height={200}
-                options={{
-                    responsive: true,
-                    title: {
-                        display: false
-                    },
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: data.multiAxes ? [
-                            {
-                                id: 'My First dataset',
-                                position: 'left',
-                                gridLines: {
-                                    borderDash: [3]
-                                },
-                                ticks: {
-                                    // mirror: true
-                                },
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: '$'
-                                }
-                            },
-                            {
-                                id: 'My Second dataset',
-                                position: 'right',
-                                gridLines: {
-                                    borderDash: [3]
-                                },
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Days'
-                                }
-                            }
-                        ] : [{
-                            // stacked: true
-                        }],
-                        xAxes: [{
-                            gridLines: {
-                                display: false,
-                                tickMarkLength: 10,
-                                drawOnChartArea: false
-                            },
-                            ticks: {
-                                maxTicksLimit: 10,
-                                padding: 0,
-                                autoSkipPadding: -100,
-                                autoSkip: true,
-                                callback: function (value, index, values) {
-                                    return value.length > 10 ? `${value.substring(0, 9)} ...` : value
-                                }
-                            }
-                        }]
-                    },
-                    legend: { display: false },
-                    tooltips: {
-                        callbacks: {
-                            title: (arr, data) => data.labels[arr[0].index]
-                        }
-                    }
-                }}
-            />
+const PieChart = ({ data: incomingData, onLegendHover }) => {
+    const data = {
+        ...incomingData,
+        labels: incomingData.datasets.reduce((labels, ds) => {
+            const copy = [...labels]
+            copy.push(ds.label)
+            return copy
+        }, []),
+        datasets: [{
+            normalBorderWidth: 2,
+            activeBorderWidth: 4,
+            disabledBorderWidth: 0.5,
+            pointHoverBorderWidth: 2,
+            fill: false,
+            pointBackgroundColor: '#fff',
+            disabledColor: 'rgba(0,0,0,0.1)',
+            pointBorderWidth: 1,
+            spanGaps: true,
+            lineTension: 0,
+            label: 'MacKeeper 2012 - Lite License (w/ Keys for in-app) (132732)',
+            backgroundColor: colors,
+            hoverBackgroundColor: colors,
+            prevBackgroundColor: '#FF8A00',
+            borderColor: '#FF8A00',
+            borderWidth: 1,
+            hoverBorderColor: '#FF8A00',
+            data: incomingData.datasets.reduce((res, ds) => {
+                const copy = [...res]
+                copy.push(ds.data.reduce((r, e) => {
+                    return r + e
+                }, 0))
+                return copy
+            }, [])
+        }]
+    }
+    const options = {
+        responsive: true,
+        title: {
+            display: false
+        },
+        maintainAspectRatio: false,
+
+        legend: { display: false },
+        tooltips: {
+            callbacks: {
+                title: (arr, data) => data.labels[arr[0].index]
+            }
+        }
+    }
+    return (
+        <div>
+            <h2>Pie</h2>
+            <div style={{ height: 300, position: 'relative' }}>
+                <Pie
+                    data={data}
+
+                    height={200}
+                    options={options}
+                />
+            </div>
+            <Legend id={data.id} datasets={data} onLegendHover={onLegendHover} pie/>
         </div>
-        <Legend id={data.id} datasets={data.datasets} onLegendHover={onLegendHover}/>
-    </div>
-)
+    )
+}
 
 export default PieChart
