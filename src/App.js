@@ -55,12 +55,16 @@ class App extends Component {
     }
 
     handleCancelRedraw = id => {
-        this.setState(prevState => ({
-            datasets: prevState.datasets.map(ds => ({
-                ...ds,
-                redraw: false
+        const { datasets } = this.state
+
+        if(datasets.some(ds => ds.redraw)) {
+            this.setState(prevState => ({
+                datasets: prevState.datasets.map(ds => ({
+                    ...ds,
+                    redraw: false
+                }))
             }))
-        }))
+        }
     }
 
     handleAddNewDataset = () => {
