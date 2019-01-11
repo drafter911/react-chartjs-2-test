@@ -46,7 +46,7 @@ const LineChart = ({ data, onLegendHover }) => {
                     drawOnChartArea: false
                 },
                 ticks: {
-                    maxTicksLimit: 9,
+                    maxTicksLimit: data.maxTicksLimit,
                     padding: 0,
                     autoSkipPadding: -100,
                     autoSkip: true,
@@ -63,6 +63,7 @@ const LineChart = ({ data, onLegendHover }) => {
             }
         }
     }
+    console.log(data.redraw)
     return (
         <div>
             <h2>Line</h2>
@@ -70,6 +71,7 @@ const LineChart = ({ data, onLegendHover }) => {
                 <Line
                     data={data}
                     options={options}
+                    redraw={data.redraw}
                 />
             </div>
             <Legend id={data.id} datasets={data.datasets} onLegendHover={onLegendHover}/>
