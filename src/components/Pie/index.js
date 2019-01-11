@@ -2,15 +2,7 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels' // docs: https://github.com/emn178/chartjs-plugin-labels
 import Legend from '../Legend'
-
-const colors = [
-    '#FF8A00',
-    '#007285',
-    '#777779',
-    '#F9C62C',
-    '#C1C1C1',
-    '#0AADC8',
-]
+import { colors } from '../../constants'
 
 const PieChart = ({ data: incomingData, onLegendHover }) => {
     const data = {

@@ -12,11 +12,20 @@ export const lineConfig = {
     lineTension: 0
 }
 
+// export const colors = [
+//     '#FF6384',
+//     '#36A2EB',
+//     '#FFCE56',
+//     '#FF8A00',
+//     '#FF444E',
+//     '#69FF2F',
+// ]
+
 export const colors = [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56',
     '#FF8A00',
-    '#FF444E',
-    '#69FF2F',
+    '#007285',
+    '#777779',
+    '#F9C62C',
+    '#C1C1C1',
+    '#0AADC8',
 ]
