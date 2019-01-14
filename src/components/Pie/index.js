@@ -2,9 +2,9 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-labels' // docs: https://github.com/emn178/chartjs-plugin-labels
 import Legend from '../Legend'
-import { colors } from '../../constants'
+// import { colors } from '../../constants'
 
-const PieChart = ({ data: incomingData, onLegendHover }) => {
+const PieChart = ({ data: incomingData, onLegendHover, colors }) => {
     const data = {
         ...incomingData,
         labels: incomingData.datasets.reduce((labels, ds) => {

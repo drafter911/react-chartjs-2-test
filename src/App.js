@@ -3,35 +3,66 @@ import './App.css';
 import ChartFactory from './components/chartFactory'
 import Actions from './components/Actions'
 import datasets from './data'
+import { colors } from './constants'
 
 class App extends Component {
     state = {
         datasets,
+        colors,
         reportNumber: 1
     }
 
-    handleLegendHover = (id, datasetIndex, isActiveOneGraph) => {
-        this.setState(prevState => ({
-            datasets: prevState.datasets.map(ds => {
-                if (ds.id === id) {
-                    return {
-                        ...ds,
-                        datasets: ds.datasets.map((dataset, index) => index === datasetIndex ? ({
-                            ...dataset,
-                            prevBorderWidth: dataset.borderWidth,
-                            borderWidth: isActiveOneGraph ? dataset.activeBorderWidth : dataset.normalBorderWidth
-
-                        }) : ({
-                            ...dataset,
-                            backgroundColor: isActiveOneGraph ? dataset.disabledColor : dataset.prevBackgroundColor,
-                            borderColor: isActiveOneGraph ? dataset.disabledColor : dataset.prevBackgroundColor,
-                            borderWidth: isActiveOneGraph ? dataset.disabledBorderWidth : dataset.normalBorderWidth
-                        }))
+    handleLegendHover = (id, datasetIndex, isActiveOneGraph, isPie) => {
+        if (isPie) {
+            if (isActiveOneGraph) {
+                this.setState(prevState => ({
+                    colors: prevState.colors.map((color, index) => {
+                        return index !== datasetIndex ? 'rgba(0,0,0, 0.1)' : color
+                    }),
+                }))
+            }
+            else {
+                this.setState(prevState => ({
+                    colors,
+                }))
+            }
+            this.setState(prevState => ({
+                datasets: prevState.datasets.map(ds => {
+                    if (ds.id === id) {
+                        return {
+                            ...ds,
+                            redraw: isActiveOneGraph
+                        }
                     }
-                }
-                else return ds
-            })
-        }))
+                    else return ds
+                })
+            }))
+
+        }
+        else {
+            this.setState(prevState => ({
+                datasets: prevState.datasets.map(ds => {
+                    if (ds.id === id) {
+                        return {
+                            ...ds,
+                            redraw: isActiveOneGraph,
+                            datasets: ds.datasets.map((dataset, index) => index === datasetIndex ? ({
+                                ...dataset,
+                                prevBorderWidth: dataset.borderWidth,
+                                borderWidth: isActiveOneGraph ? dataset.activeBorderWidth : dataset.normalBorderWidth
+
+                            }) : ({
+                                ...dataset,
+                                backgroundColor: isActiveOneGraph ? dataset.disabledColor : dataset.prevBackgroundColor,
+                                borderColor: isActiveOneGraph ? dataset.disabledColor : dataset.prevBackgroundColor,
+                                borderWidth: isActiveOneGraph ? dataset.disabledBorderWidth : dataset.normalBorderWidth
+                            }))
+                        }
+                    }
+                    else return ds
+                })
+            }))
+        }
     }
 
     handleSizeChange = (size, id) => {
@@ -42,7 +73,16 @@ class App extends Component {
                 redraw: true,
                 maxTicksLimit: this.getTicksLimit(size)
             }) : ds)
-        }))
+        }), () => {
+            this.setState(prevState => ({
+                datasets: prevState.datasets.map(ds => {
+                    return ds.id === id ? ({
+                        ...ds,
+                        redraw: false,
+                    }) : ds
+                })
+            }))
+        })
     }
 
     handleReportTypeChange = (id, type) => {
@@ -54,19 +94,6 @@ class App extends Component {
         }))
     }
 
-    handleCancelRedraw = id => {
-        const { datasets } = this.state
-
-        if(datasets.some(ds => ds.redraw)) {
-            this.setState(prevState => ({
-                datasets: prevState.datasets.map(ds => ({
-                    ...ds,
-                    redraw: false
-                }))
-            }))
-        }
-    }
-
     handleAddNewDataset = () => {
         this.setState(prevState => {
             const copy = [...prevState.datasets]
@@ -76,7 +103,7 @@ class App extends Component {
             })
             return {
                 reportNumber: prevState.reportNumber === 2 ? 1 : 2,
-                datasets : copy
+                datasets: copy
             }
         })
     }
@@ -116,7 +143,6 @@ class App extends Component {
                             (
                                 <div key={datasets.id}
                                      className={'AppChartWrapper'}
-                                     onMouseMove={this.handleCancelRedraw}
                                      style={{ width: this.getContainerSize(datasets.size) }}>
                                     <div className={'ChartWrapper'}>
                                         <Actions handleSizeChange={this.handleSizeChange}
@@ -124,7 +150,8 @@ class App extends Component {
                                                  id={datasets.id}/>
                                         <ChartFactory
                                             data={datasets}
-                                            onLegendHover={this.handleLegendHover}/>
+                                            onLegendHover={this.handleLegendHover}
+                                            colors={this.state.colors}/>
                                     </div>
                                 </div>
                             ))
